@@ -1,7 +1,7 @@
 <template>
     <v-app-bar app="app" color="#CFD8DC">
         <v-row justify='center'>
-            <v-col cols='3'>
+            <v-col cols='2'>
                 신동아화재   보험회사
             </v-col>
             <v-col cols='1' class="navItem">
@@ -11,17 +11,41 @@
                     </v-btn>
                 </router-link>
             </v-col>
-            <v-col cols='1'>
-                <div></div>
-            </v-col>
             <v-col cols='1' class="navItem">
-                <router-link to="/about">
+                <router-link to="/employee">
                     <v-btn text="text" rounded="rounded" color="#455A64" style="margin-top:10px;">
-                        about
+                        영업사원
                     </v-btn>
                 </router-link>          
             </v-col>
-            <!-- 5 cols -->
+            <v-col cols='1' class="navItem">
+                <router-link to="/client">
+                    <v-btn text="text" rounded="rounded" color="#455A64" style="margin-top:10px;">
+                        고객
+                    </v-btn>
+                </router-link>          
+            </v-col>
+            <v-col cols='1' class="navItem">
+                <router-link to="/uw">
+                    <v-btn text="text" rounded="rounded" color="#455A64" style="margin-top:10px;">
+                        UW
+                    </v-btn>
+                </router-link>          
+            </v-col>
+            <v-col cols='1' class="navItem">
+                <router-link to="/designer">
+                    <v-btn text="text" rounded="rounded" color="#455A64" style="margin-top:10px;">
+                        보험설계사
+                    </v-btn>
+                </router-link>          
+            </v-col>
+            <v-col cols='1' class="navItem">
+                <router-link to="/admin">
+                    <v-btn text="text" rounded="rounded" color="#455A64" style="margin-top:10px;">
+                        보험관리자
+                    </v-btn>
+                </router-link>          
+            </v-col>
             <v-spacer />
             
             <v-col cols='3'>

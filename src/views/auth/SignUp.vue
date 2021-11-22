@@ -44,35 +44,53 @@
       </v-col>
     </v-row>
     <v-row justify="center">
-      <v-col cols='3'>
+      <v-col cols='4'>
         <v-text-field
-            label="닉네임 입력"
-            v-model="nickName" 
+            label="이름 입력"
+            v-model="name" 
             :rules="checknickNameRules"
             hide-details="auto"
           ></v-text-field>
       </v-col>
-      <v-col cols='1'>
-        <v-btn
-            elevation="2" block
-            v-on:click="checkNickName"
-          >중복확인</v-btn>
-      </v-col>
     </v-row>
-    
     <br>
     <v-row justify="center">
-      <v-col cols='3'>
+      <v-col cols='4'>
         <v-text-field
           label="이메일 입력"
           v-model="email"
           hide-details="auto"
         ></v-text-field>
       </v-col>
-      <v-col cols='1'>
-        <v-btn
-            elevation="2" block
-          >인증하기</v-btn>  
+    </v-row>
+    <br>
+    <v-row justify="center">
+      <v-col cols='4'>
+        <v-text-field
+          label="주민번호 입력"
+          v-model="ssn"
+          hide-details="auto"
+        ></v-text-field>
+      </v-col>
+    </v-row>
+    <br>
+    <v-row justify="center">
+      <v-col cols='4'>
+        <v-text-field
+        label = "전화번호"
+        v-model="tel"
+        >
+        </v-text-field>
+      </v-col>
+    </v-row>
+    <br>
+    <v-row justify="center">
+      <v-col cols='4'>
+        <v-text-field
+        label = "주소"
+        v-model="address"
+        >
+        </v-text-field>
       </v-col>
     </v-row>
     <br>
@@ -85,54 +103,24 @@
         </v-text-field>
       </v-col>
     </v-row>
+    
     <br>
     <v-row justify="center">
-      <v-col cols='4'>
-        <v-text-field
-        label = "생일"
-        v-model="birth"
-        >
-        </v-text-field>
-      </v-col>
-    </v-row>
-    <br>
-    <v-row justify="center">
-      <v-col cols='4'>
-        <v-text-field
-        label = "직업"
-        v-model="job"
-        >
-        </v-text-field>
-      </v-col>
-    </v-row>
-    <br>
-    <v-row justify="center">
-      <v-col cols='4'>
-        <v-text-field
-        label = "병력 여부"
-        v-model="sick"
-        >
-        </v-text-field>
-      </v-col>
-    </v-row>
-    <br>
-    <v-row justify="center">
-      <v-col cols='4'>
-        <v-text-field
-        label = "폰 번호"
-        v-model="phone"
-        >
-        </v-text-field>
-      </v-col>
-    </v-row>
-    <br>
-    <v-row justify="center">
-      <v-col cols='4'>
-        <v-text-field
-        label = "집주소"
-        v-model="address"
-        >
-        </v-text-field>
+      <v-col cols='1'>
+        <v-radio-group v-model="sex">
+          <v-radio
+          label = "남성"
+          color="blue"
+          value="male"
+          >
+          </v-radio>
+          <v-radio
+          label = "여성"
+          color="red"
+          value="female"
+          >
+          </v-radio>
+        </v-radio-group>
       </v-col>
     </v-row>
     <br>
@@ -176,8 +164,13 @@
         id : '',
         pw : '',
         checkPw : '',
-        nickName : '',
-        email : '', 
+        name : '',
+        email : '',
+        ssn : '',
+        tel : '',
+        address : '',
+        age : '',
+        sex : '',
         show1: false, show2 : false,
         idRules: [
           value => !!value || '영어, 숫자 합쳐서 6글자 이상 만들어주세요.',
@@ -202,7 +195,23 @@
     },
 
     methods : {
-
+      async signUp(){
+        try{
+          await this.$store.dispatch('sign_up', {
+            id : this.id,
+            pw : this.pw,
+            name : this.name,
+            email : this.email,
+            ssn : this.ssn,
+            tel : this.tel,
+            address : this.address,
+            age : this.age,
+            sex : this.sex,
+          })
+        }catch(err){
+          console.log(err);
+        }
+      },
     },
   }
 </script>

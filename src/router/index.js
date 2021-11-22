@@ -11,6 +11,11 @@ import FindId from '../views/auth/FindId.vue'
 import FindPw from '../views/auth/FindPw.vue'
 
 import Home from '../views/core/Home.vue'
+import Employee from '../views/core/Employee.vue'
+import Client from '../views/core/Client.vue'
+import Uw from '../views/core/Uw.vue'
+import Designer from '../views/core/Designer.vue'
+import Admin from '../views/core/Admin.vue'
 
 const routes = [
   {
@@ -46,6 +51,26 @@ const routes = [
       {
         path:'home',
         component: Home
+      },
+      {
+        path : 'employee',
+        component : Employee
+      },
+      {
+        path : 'client',
+        component : Client
+      },
+      {
+        path : 'uw',
+        component : Uw
+      },
+      {
+        path : 'designer',
+        component : Designer
+      },
+      {
+        path : 'admin',
+        component : Admin
       },
     ]
   },
