@@ -6,16 +6,5 @@
 <script>
 export default {
     name : 'finalPayment',
-    created : {
-
-    },
-    data() {
-        return {
-            
-        }
-    },
-    methods: {
-        
-    },
 }
 </script>

@@ -6,16 +6,5 @@
 <script>
 export default {
     name : 'suggestion',
-    created : {
-
-    },
-    data() {
-        return {
-            
-        }
-    },
-    methods: {
-        
-    },
 }
 </script>

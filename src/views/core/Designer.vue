@@ -4,7 +4,7 @@
             <v-col cols='2'>
                 <br>
                 <v-list>
-                    <v-list-item-group v-model="model" >
+                    <v-list-item-group v-model="no" >
                         <v-list-item v-for="(item, i) in items" :key="i" @click="menuActionClick(item.action)" >
                         <v-list-item-icon>
                             <v-icon v-text="item.icon"></v-icon>
@@ -17,10 +17,17 @@
                 </v-list>
             </v-col>
         </v-row>
+        <v-col cols='10'>
+            <DevelopProduct />
+        </v-col>
     </v-container>
 </template>
 <script>
+import DevelopProduct from '../../components/designer/DevelopProduct.vue'
 export default {
+    components : {
+        DevelopProduct
+    },
     data(){
         return {
             items : [
@@ -30,7 +37,7 @@ export default {
                     action : 0
                 },
             ],
-            model : 0,
+            no : 0,
         }
     },
 }

@@ -6,16 +6,5 @@
 <script>
 export default {
     name : 'subcription',
-    created : {
-
-    },
-    data() {
-        return {
-            
-        }
-    },
-    methods: {
-        
-    },
 }
 </script>

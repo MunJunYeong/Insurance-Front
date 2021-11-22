@@ -4,8 +4,8 @@
             <v-col cols='2'>
                 <br>
                 <v-list>
-                    <v-list-item-group v-model="model" >
-                        <v-list-item v-for="(item, i) in items" :key="i" @click="menuActionClick(item.action)" >
+                    <v-list-item-group v-model="no" >
+                        <v-list-item v-for="(item, i) in items" :key="i"  v-on:click="menuActionClick(item.action)" >
                         <v-list-item-icon>
                             <v-icon v-text="item.icon"></v-icon>
                         </v-list-item-icon>
@@ -16,26 +16,27 @@
                     </v-list-item-group>
                 </v-list>
             </v-col>
-            <v-col cols='10'  v-if="model=== '0'">
+            
+            <v-col cols='10'  v-if="no=== 0">
                 <ClientList />
             </v-col>
-            <v-col cols='10' v-else-if="model === '1'" >
+            <v-col cols='10' v-else-if="no === 1" >
                 <Suggestion />
             </v-col>
-            <v-col cols='10' v-else-if="model === '2'" >
+            <v-col cols='10' v-else-if="no === 2" >
                 <Subcription />
             </v-col>
-            <v-col cols='10' v-else >
+            <v-col cols='10' v-else>
                 <FinalPayment />
             </v-col>
         </v-row>
     </v-container>
 </template>
 <script>
-import ClientList from '../../components/ClientList.vue'
-import Suggestion from '../../components/Suggestion.vue'
-import Subcription from '../../components/Subcription.vue'
-import FinalPayment from '../../components/FinalPayment.vue'
+import ClientList from '../../components/employee/ClientList.vue'
+import Suggestion from '../../components/employee/Suggestion.vue'
+import Subcription from '../../components/employee/Subcription.vue'
+import FinalPayment from '../../components/employee/FinalPayment.vue'
 
 export default {
     name : 'employee',
@@ -44,6 +45,13 @@ export default {
         Suggestion,
         Subcription,
         FinalPayment
+    },
+    created(){
+    },
+    computed: {
+        // no : function (){
+        //     return this.num
+        // }
     },
     data(){
         return {
@@ -69,20 +77,14 @@ export default {
                     action : 3
                 },
             ],
-            model : 0,
+            no : 0,
         }
     },
     methods: {
         menuActionClick(action){
-            if(action === 0){
-                this.model = 0;
-            }else if(action === 1){
-                this.model = 1;
-            }else if(action === 2){
-                this.model = 2;
-            }else {
-                this.model = 3;
-            }
+            this.no = action;
+            console.log("모델 :" + this.no) 
+            console.log(action) 
         }
     },
 }
