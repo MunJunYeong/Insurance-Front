@@ -18,9 +18,24 @@
             @click:append="show1 = !show1"
           >
           </v-text-field>
-          <v-checkbox
-          :label="`로그인상태유지`">
-          </v-checkbox> 
+          <v-row justify="center">
+            <v-col cols='4'>
+              <v-radio-group v-model="type">
+                <v-radio
+                label = "고객"
+                color="blue"
+                value="client"
+                >
+                </v-radio>
+                <v-radio
+                label = "관리자"
+                color="red"
+                value="admin"
+                >
+                </v-radio>
+              </v-radio-group>
+            </v-col>
+          </v-row>
           <!-- 로그인버튼 -->
           <v-btn
             elevation="2" block
@@ -61,27 +76,31 @@
         id : '',
         pw : '',
         show1: false, show2 : false,
+        type : '',
       }
     },
     methods: {
       async login(){
-        try {
-          await this.$store.dispatch('sign_in', {
-            id : this.id,
-            pw : this.pw
-          })
-        } catch (err) {
-          console.log(err)
-          // if(err.message === 'wrongPw'){
-          //   alert('비밀번호가 틀렸습니다.')
-          // }else if(err.message === 'wrongId'){
-          //   alert('아이디가 존재하지 않습니다.')
-          // }else if(err.message === 'wrongData'){
-          //   alert('아이디와 비밀번호를 둘다 입력해주세요..')
-          // }else{
-          //   alert('통신 오류')
-          // }
+        if(this.type === 'client'){
+          try {
+            await this.$store.dispatch('client_sign_in', {
+              id : this.id,
+              pw : this.pw
+            })
+          } catch (err) {
+            console.log(err)
+          }
+        }else{
+          try {
+            await this.$store.dispatch('admin_sign_in', {
+              id : this.id,
+              pw : this.pw
+            })
+          } catch (err) {
+            console.log(err)
+          }
         }
+        
       }
     },
   }

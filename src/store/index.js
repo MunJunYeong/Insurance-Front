@@ -2,7 +2,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import auth from './auth';
-
+import client from './client';
+import salesman from './salesman';
+import uw from './uw';
+import manager from './manager';
+import designer from './designer';
+import handler from './handler';
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -13,6 +18,6 @@ export default new Vuex.Store({
   actions: {
   },
   modules: {
-    auth
+    auth, client, salesman,uw,manager,designer,handler,
   }
 })

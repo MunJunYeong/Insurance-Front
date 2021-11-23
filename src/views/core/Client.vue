@@ -34,7 +34,7 @@
 </template>
 <script>
 import CheckSubscription from '../../components/client/CheckSubscription.vue';
-import Claim from '../../components/client/Claim.vue';
+import Claim from '../../components/client/Accident.vue';
 import CheckSuggest from '../../components/client/CheckSuggest.vue';
 
 export default {

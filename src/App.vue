@@ -17,3 +17,13 @@ export default {
   }),
 };
 </script>
+<style>
+
+* {
+ font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+}
+a {
+  text-decoration: none;
+}
+
+</style>

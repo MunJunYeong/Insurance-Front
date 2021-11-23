@@ -34,11 +34,30 @@ const authModule = {
             console.log(res);
             commit
         },
-        async sign_in({commit}, data){
+        //고객 로그인
+        async client_sign_in({commit}, data){
             console.log(data)
             let res;
             try{
-                res = await axios.post('http://localhost:8080/signIn', {
+                res = await axios.post('http://localhost:8080/client/signIn', {
+                    id : data.id,
+                    pw : data.pw
+                });
+            }catch(err){
+                console.log(err);
+            }
+            if(res.data.token){
+                localStorage.setItem('token', res.data.token);
+                commit('auth_set_data', res.data.token); // jwt 토큰을 decode해서 값을 저장해야됨.
+                location.href='#/home'
+            }
+        },
+        //관리자 로그인
+        async admin_sign_in({commit}, data){
+            console.log(data)
+            let res;
+            try{
+                res = await axios.post('http://localhost:8080/admin/signIn', {
                     id : data.id,
                     pw : data.pw
                 });
