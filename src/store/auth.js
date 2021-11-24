@@ -16,8 +16,9 @@ const authModule = {
         //회원가입
         async sign_up ({commit}, data){
             let res;
+            console.log(data)
             try {
-                res = await axios.post('http://localhost:8080/signUp', {
+                res = await axios.post('http://localhost:8082/signUp', {
                     id : data.id,
                     pw : data.pw,
                     name : data.name,
@@ -31,17 +32,19 @@ const authModule = {
             } catch (err) {
                 console.log(err);
             }
-            console.log(res);
+            // console.log(res);
+            res
             commit
         },
         //고객 로그인
         async client_sign_in({commit}, data){
-            console.log(data)
             let res;
+            console.log(data);
             try{
-                res = await axios.post('http://localhost:8080/client/signIn', {
+                res = await axios.post('http://localhost:8082/client/signIn', {
                     id : data.id,
-                    pw : data.pw
+                    pw : data.pw,
+                    
                 });
             }catch(err){
                 console.log(err);
@@ -57,7 +60,7 @@ const authModule = {
             console.log(data)
             let res;
             try{
-                res = await axios.post('http://localhost:8080/admin/signIn', {
+                res = await axios.post('http://localhost:8082/admin/signIn', {
                     id : data.id,
                     pw : data.pw
                 });
