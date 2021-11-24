@@ -76,7 +76,7 @@
         id : '',
         pw : '',
         show1: false, show2 : false,
-        type : '',
+        type : 'client',
       }
     },
     methods: {

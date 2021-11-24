@@ -51,8 +51,9 @@ const salesmanModule = {
                 alert('청약서 내용을 입력해주세요.')
                 return;
             }
+            
             try {
-                res = await axios.post('http://localhost:8080/addSuggest', {
+                res = await axios.post('http://localhost:8080/addSubscription', {
                     userIdx : data.userIdx,
                     content : data.content
             },
