@@ -9,7 +9,16 @@
             </v-col>
         </v-row>
         <Editor :initialValue="editorText" ref="toastEditor" initialEditType="wysiwyg"  height="500px" />
-
+        <v-row >
+            <v-col cols='5'>
+                보험 유형 선택
+                <v-chip-group mandatory active-class="primary--text">
+                    <v-chip v-for="(tag, idx) in tags" :key="idx"   v-on:click="setInsurance(tag.value)">
+                        {{ tag.text }}
+                    </v-chip>
+                </v-chip-group>
+            </v-col>
+        </v-row>
         <v-row justify='center'>
             <v-col cols='4'>
                 <v-btn  block elvation="2" v-on:click="save">
@@ -37,6 +46,25 @@ export default {
         return {
             editorText : '',
             userIdx : '',
+            insurance : 'car',
+            tags : [
+                {
+                    text : '자동차 보험',
+                    value : 'car',
+                },
+                {
+                    text : '화재 보험',
+                    value : 'fire',
+                },
+                {
+                    text : '산업재해 보험',
+                    value : 'industrial',
+                },
+                {
+                    text : '생명 보험',
+                    value : 'life',
+                },
+            ]
         }
     },
     components : {
@@ -48,7 +76,8 @@ export default {
             try {
                 await this.$store.dispatch('add_suggest', {
                     userIdx : this.userIdx,
-                    content : this.editorText
+                    content : this.editorText,
+                    insurance : this.insurance
                 })
 
             }catch(err){
@@ -63,8 +92,10 @@ export default {
             if(result){
                 location.href='#/home'
             }
-            
         },
+        setInsurance(value){
+            this.insurance = value;
+        }
     },
 }
 </script>

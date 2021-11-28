@@ -9,7 +9,7 @@
             </v-col>
         </v-row>
         <Editor :initialValue="editorText" ref="toastEditor" initialEditType="wysiwyg"  height="500px" />
-
+        
         <v-row justify='center'>
             <v-col cols='4'>
                 <v-btn  block elvation="2" v-on:click="save">
