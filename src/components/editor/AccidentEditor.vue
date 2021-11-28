@@ -3,7 +3,7 @@
         <v-row >
             <v-col cols='5'>
                 <v-text-field
-                label="사고 일자 입력"
+                label="사고 일자 입력 (형식 : mm/dd/yyyy)"
                 v-model="date">
                 </v-text-field>
             </v-col>
@@ -21,7 +21,7 @@
             <v-col cols='5'>
                 보험 유형 선택
                 <v-chip-group mandatory active-class="primary--text">
-                    <v-chip v-for="tag in tags" :key="tag"  @click="setInsurance(tag.value)">
+                    <v-chip v-for="(tag, idx) in tags" :key="idx"  @click="setInsurance(tag.value)">
                         {{ tag.text }}
                     </v-chip>
                 </v-chip-group>
@@ -53,7 +53,7 @@ export default {
     data() {
         return {
             editorText : '',
-            price : '',
+            price : 0,
             subject : '',
             date : '',
             insurance : 'car',
@@ -83,7 +83,6 @@ export default {
     methods: {
         async save(){
             this.editorText = this.getContent();
-            console.log(`날짜 : ${this.date}, 내용 : ${this.content}, 피해금액 : ${this.price}, 보험종류 : ${this.insurance}, `)
             try {
                 await this.$store.dispatch('add_accident', {
                     date : this.date,
