@@ -12,6 +12,7 @@
         <v-row >
             <v-col cols='5'>
                 <v-text-field
+                type='number'
                 label="피해 금액 입력"
                 v-model="price">
                 </v-text-field>
@@ -53,7 +54,7 @@ export default {
     data() {
         return {
             editorText : '',
-            price : 0,
+            price : '',
             subject : '',
             date : '',
             insurance : 'car',
@@ -80,6 +81,11 @@ export default {
     components : {
         Editor
     },
+    computed: {
+        userData : function(){
+            return this.$store.getters.get_client_data;
+        },
+    },
     methods: {
         async save(){
             this.editorText = this.getContent();
@@ -88,7 +94,8 @@ export default {
                     date : this.date,
                     content : this.editorText,
                     price : this.price,
-                    insurance : this.insurance
+                    insurance : this.insurance,
+                    clientIdx : this.userData.clientIdx
                 })
 
             }catch(err){

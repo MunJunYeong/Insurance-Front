@@ -2,21 +2,30 @@ import axios from "axios";
 
 const authModule = {
     state : {
-        userData : {}
+        clientData : {},
+        employeeData : {},
     },
     mutations : {
-        auth_set_data(state, data){
-            state.userData = {...data};
+        client_set_data(state, data){
+            state.clientData = {...data}
+        },
+        employee_set_data(state, data){
+            state.employeeData = {...data};
         }
     },
     getters : {
+        get_client_data(state){
+            return state.clientData;
+        },
+        get_employee_data(state){
+            return state.employeeData;
+        },
 
     },
     actions : {
         //회원가입
         async sign_up ({commit}, data){
             let res;
-            console.log(data)
             try {
                 res = await axios.post('http://localhost:8082/signUp', {
                     id : data.id,
@@ -32,14 +41,17 @@ const authModule = {
             } catch (err) {
                 console.log(err);
             }
-            // console.log(res);
+            console.log(res);
+            if(res.data === "성공"){
+                alert('회원가입에 성공했습니다.');
+                location.href='#/home'
+            }
             res
             commit
         },
         //고객 로그인
         async client_sign_in({commit}, data){
             let res;
-            console.log(data);
             try{
                 res = await axios.post('http://localhost:8082/client/signIn', {
                     id : data.id,
@@ -49,15 +61,18 @@ const authModule = {
             }catch(err){
                 console.log(err);
             }
-            if(res.data.token){
-                localStorage.setItem('token', res.data.token);
-                commit('auth_set_data', res.data.token); // jwt 토큰을 decode해서 값을 저장해야됨.
+            commit
+            if(res.data){
+                localStorage.setItem("role", "client");
+                commit('client_set_data', res.data);
+                alert('로그인을 성공했습니다.');
                 location.href='#/home'
+            }else {
+                alert('로그인을 실패했습니다.');
             }
         },
         //관리자 로그인
         async admin_sign_in({commit}, data){
-            console.log(data)
             let res;
             try{
                 res = await axios.post('http://localhost:8082/admin/signIn', {
@@ -67,10 +82,13 @@ const authModule = {
             }catch(err){
                 console.log(err);
             }
-            if(res.data.token){
-                localStorage.setItem('token', res.data.token);
-                commit('auth_set_data', res.data.token); // jwt 토큰을 decode해서 값을 저장해야됨.
+            if(res.data){
+                localStorage.setItem("role", res.data.role);
+                commit('employee_set_data', res.data);
+                alert('로그인을 성공했습니다.');
                 location.href='#/home'
+            }else {
+                alert('로그인을 실패했습니다.');
             }
         }
     }

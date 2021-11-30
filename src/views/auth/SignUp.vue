@@ -5,7 +5,6 @@
         <v-text-field
             label="아이디 입력"
             v-model="id"
-            :rules="idRules"
             hide-details="auto"
             :readonly="overlapId"
           ></v-text-field>
@@ -13,7 +12,6 @@
       <v-col cols='1'>
         <v-btn
             elevation="2" block
-            v-on:click="checkId"
           >중복확인</v-btn>
       </v-col>
     </v-row>
@@ -38,7 +36,6 @@
         <v-text-field
             label="이름 입력"
             v-model="name" 
-            :rules="checknickNameRules"
             hide-details="auto"
           ></v-text-field>
       </v-col>

@@ -8,16 +8,20 @@ import uw from './uw';
 import manager from './manager';
 import designer from './designer';
 import handler from './handler';
-Vue.use(Vuex)
 
+Vue.use(Vuex)
+import createPersistedState from 'vuex-persistedstate';
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
+  // state: {
+  // },
+  // mutations: {
+  // },
+  // actions: {
+  // },
   modules: {
     auth, client, salesman,uw,manager,designer,handler,
-  }
+  },
+  plugins: [
+    createPersistedState()
+  ]
 })

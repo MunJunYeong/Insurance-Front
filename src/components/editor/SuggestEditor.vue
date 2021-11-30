@@ -3,8 +3,9 @@
         <v-row >
             <v-col cols='5'>
                 <v-text-field
+                type='number'
                 label="고객번호 입력"
-                v-model="userIdx">
+                v-model="clientIdx">
                 </v-text-field>
             </v-col>
         </v-row>
@@ -67,6 +68,11 @@ export default {
             ]
         }
     },
+    computed: {
+        employeeData : function(){
+            return this.$store.getters.get_employee_data;
+        },
+    },
     components : {
         Editor
     },
@@ -75,11 +81,11 @@ export default {
             this.editorText = this.getContent();
             try {
                 await this.$store.dispatch('add_suggest', {
-                    userIdx : this.userIdx,
+                    employeeIdx : this.employeeData.employeeIdx,
+                    clientIdx : this.clientIdx,
                     content : this.editorText,
-                    insurance : this.insurance
+                    insuranceType : this.insurance
                 })
-
             }catch(err){
                 console.log(err)
             }

@@ -83,6 +83,7 @@
       async login(){
         if(this.type === 'client'){
           try {
+            
             await this.$store.dispatch('client_sign_in', {
               id : this.id,
               pw : this.pw
