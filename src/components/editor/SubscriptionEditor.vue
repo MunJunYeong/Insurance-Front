@@ -3,8 +3,18 @@
         <v-row >
             <v-col cols='5'>
                 <v-text-field
-                label="고객번호 입력"
-                v-model="userIdx">
+                type='number'
+                label="계약서 번호 입력"
+                v-model="contractIdx">
+                </v-text-field>
+            </v-col>
+        </v-row>
+        <v-row >
+            <v-col cols='5'>
+                <v-text-field
+                type='number'
+                label="고객 번호 입력"
+                v-model="clientIdx">
                 </v-text-field>
             </v-col>
         </v-row>
@@ -36,18 +46,26 @@ export default {
     data() {
         return {
             editorText : '',
-            userIdx : '',
+            clientIdx : '',
+            contractIdx : ''
         }
     },
     components : {
         Editor
+    },
+    computed: {
+        employeeData : function(){
+            return this.$store.getters.get_employee_data;
+        },
     },
     methods: {
         async save(){
             this.editorText = this.getContent();
             try {
                 await this.$store.dispatch('add_subscription', {
-                    userIdx : this.userIdx,
+                    contractIdx : this.contractIdx,
+                    employeeIdx : this.employeeData.employeeIdx,
+                    clientIdx : this.clientIdx,
                     content : this.editorText
                 })
 

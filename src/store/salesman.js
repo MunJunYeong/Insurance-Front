@@ -29,7 +29,6 @@ const salesmanModule = {
         },
         //제안서 작성
         async add_suggest({commit}, data){
-            // let token = localStorage.getItem('token');
             let res;
             if(data.userIdx === ''){alert('고객 번호를 입력해주세요.');return;}
             if(data.content === ''){alert('제안서 내용을 입력해주세요.');return;}
@@ -44,36 +43,42 @@ const salesmanModule = {
             } catch (err) {
                 console.log(err);
             }
-            if(res.data === 1){
-                alert('제안서 작성이 저장되었습니다.');
+            if(res.data){
+                alert(`${res.data}번 계약의 제안서가 작성이 저장되었습니다.`);
             }else{
-                alert('고객번호가 존재하지 않습니다.');
+                alert('잘못된 고객 번호 입니다.');
             }
             console.log(res);
             commit
         },
         //청약서 작성
         async add_subscription({commit}, data){
-            // let token = localStorage.getItem('token');
             let res;
-            if(typeof(data.userIdx) === "string"){alert('고객 번호를 숫자로 입력해주세요.'); return;}
-            if(data.userIdx === ''){alert('고객 번호를 입력해주세요.'); return;}
+            if(data.contractIdx === ''){alert('계약서 번호를 입력해주세요.'); return;}
+            if(data.clientIdx === ''){alert('고객 번호를 입력해주세요.'); return;}
             if(data.content === ''){alert('청약서 내용을 입력해주세요.');return;}
-            
             try {
-                res = await axios.post('http://localhost:8080/addSubscription', {
-                    userIdx : data.userIdx,
+                res = await axios.post('http://localhost:8082/salesman/addSubscription', {
+                    employeeIdx : data.employeeIdx,
+                    contractIdx : data.contractIdx,
+                    clientIdx : data.clientIdx,
                     content : data.content
-            },
-            {
-                headers : {
-                    // 'Authorization' : token
-                }
             });
             } catch (err) {
                 console.log(err);
             }
-            console.log(res);
+            if(res.data === -1){
+                alert('잘못된 고객 번호 입니다.');
+                return;
+            }
+            if(res.data === 0){
+                alert('해당 계약서는 다른 영업사원이 작성 중 입니다.');
+                return;
+            }
+            if(res.data){
+                alert(`${res.data}번 계약의 청약서가 작성이 저장되었습니다.`);
+            }
+            
             commit
         }
     }

@@ -82,9 +82,7 @@ export default {
     },
     methods: {
         menuActionClick(action){
-            this.no = action;
-            console.log("모델 :" + this.no) 
-            console.log(action) 
+            this.no = action; 
         }
     },
 }
