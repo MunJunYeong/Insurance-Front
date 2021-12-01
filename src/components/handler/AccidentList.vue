@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row justify='center'>
+        <v-row justify='center' v-on:click = "clickIdea(accidentIdx)">
             <v-col cols='1' />
             <v-col cols='1' class="table2">
                 {{accidentIdx}}
@@ -28,12 +28,17 @@
 export default {
     name: 'accidentList',
     props: [
-            "accidentIdx",
-            "clientIdx",
-            "name",
-            "damagePrice",
-            "insuranceType",
-            "date",
-        ],
+        "accidentIdx",
+        "clientIdx",
+        "name",
+        "damagePrice",
+        "insuranceType",
+        "date",
+    ],
+    methods : {
+        clickIdea(accidentIdx){
+            this.$router.push({path: `handler/${accidentIdx}`});
+        },
+    }
 }
 </script>
