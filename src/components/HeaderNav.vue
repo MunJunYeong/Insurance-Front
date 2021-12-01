@@ -40,9 +40,16 @@
                 </router-link>          
             </v-col>
             <v-col cols='1' class="navItem" v-if="checkAdmin()">
-                <router-link to="/admin">
+                <router-link to="/manager">
                     <v-btn text="text" rounded="rounded" color="#455A64" style="margin-top:10px;">
                         보험관리자
+                    </v-btn>
+                </router-link>          
+            </v-col>
+            <v-col cols='1' class="navItem" v-if="checkHandler()">
+                <router-link to="/handler">
+                    <v-btn text="text" rounded="rounded" color="#455A64" style="margin-top:10px;">
+                        사고처리사
                     </v-btn>
                 </router-link>          
             </v-col>
@@ -134,6 +141,11 @@
             },
             checkAdmin(){
                 if(this.token === "manager"){
+                    return true;
+                }
+            },
+            checkHandler(){
+                if(this.token === "handler"){
                     return true;
                 }
             },

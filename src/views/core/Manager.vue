@@ -17,34 +17,42 @@
                 </v-list>
             </v-col>
             <v-col cols='10'  v-if="no=== 0">
-                <Uw />
+                <ContractRule />
             </v-col>
-            <v-col cols='10' v-else-if="no === 1" >
-                <EstablishUw />
+            <v-col cols='10'  v-if="no=== 1">
+                <Installment />
+            </v-col>
+            <v-col cols='10'  v-if="no=== 2">
+                <Expiration />
             </v-col>
         </v-row>
     </v-container>
 </template>
 <script>
-import EstablishUw from '../../components/uw/EstablishUw.vue';
-import Uw from '../../components/uw/Uw.vue';
+import ContractRule from '../../components/manager/ContractRule.vue'
+import Installment from '../../components/manager/Installment.vue'
+import Expiration from '../../components/manager/Expiration.vue'
 export default {
     components : {
-        EstablishUw,
-        Uw,
+        ContractRule, Installment, Expiration
     },
     data(){
         return {
             items : [
                 {
                     icon: 'mdi-account',
-                    text: '인수검사',
+                    text: '계약 관리 지침',
                     action : 0
                 },
                 {
                     icon: 'mdi-star',
-                    text: '인수정책 수립',
+                    text: '분납/수금',
                     action : 1
+                },
+                {
+                    icon: 'mdi-star',
+                    text: '만기 계약',
+                    action : 2
                 },
             ],
             no : 0,

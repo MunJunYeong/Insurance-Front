@@ -25,7 +25,6 @@ const salesmanModule = {
                 console.log(err);
             }
             commit('client_list_set_data', res.data);
-            commit
         },
         //제안서 작성
         async add_suggest({commit}, data){
@@ -43,10 +42,18 @@ const salesmanModule = {
             } catch (err) {
                 console.log(err);
             }
+            
+            if(res.data === 0){
+                alert('잘못된 고객 번호 입니다.');
+                return;
+            }
+            if(res.data === -1){
+                alert('해당 고객은 이미 제안서가 작성되어져 있습니다.');
+                return;
+            }
             if(res.data){
                 alert(`${res.data}번 계약의 제안서가 작성이 저장되었습니다.`);
-            }else{
-                alert('잘못된 고객 번호 입니다.');
+                return;
             }
             console.log(res);
             commit
@@ -67,12 +74,16 @@ const salesmanModule = {
             } catch (err) {
                 console.log(err);
             }
-            if(res.data === -1){
+            if(res.data === 0){
                 alert('잘못된 고객 번호 입니다.');
                 return;
             }
-            if(res.data === 0){
-                alert('해당 계약서는 다른 영업사원이 작성 중 입니다.');
+            if(res.data === -1){
+                alert('해당 고객의 제안서부터 작성해주세요.');
+                return;
+            }
+            if(res.data === -2){
+                alert('해당 고객에 대한 청약서가 이미 존재합니다.');
                 return;
             }
             if(res.data){

@@ -15,8 +15,8 @@ import Employee from '../views/core/Employee.vue'
 import Client from '../views/core/Client.vue'
 import Uw from '../views/core/Uw.vue'
 import Designer from '../views/core/Designer.vue'
-import Admin from '../views/core/Admin.vue'
-
+import Manager from '../views/core/Manager.vue'
+import Handler from '../views/core/Handler.vue'
 const routes = [
   {
     path: '/',
@@ -69,8 +69,12 @@ const routes = [
         component : Designer
       },
       {
-        path : 'admin',
-        component : Admin
+        path : 'Manager',
+        component : Manager
+      },
+      {
+        path : 'handler',
+        component : Handler
       },
     ]
   },

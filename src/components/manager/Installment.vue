@@ -1,10 +1,10 @@
 <template>
     <v-container>
-        상품 개발
+        dfafs
     </v-container>
 </template>
 <script>
 export default {
-    name : 'developProduct',
+    
 }
 </script>
