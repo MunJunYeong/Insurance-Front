@@ -97,10 +97,10 @@ export default {
                     insurance : this.insurance,
                     clientIdx : this.userData.clientIdx
                 })
-
             }catch(err){
                 console.log(err)
             }
+            this.$router.go('#/home');
         },
         getContent() {
           return this.$refs.toastEditor.invoke('getMarkdown')
