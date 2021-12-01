@@ -19,9 +19,6 @@
             <v-col cols='10'  v-if="no=== 0">
                 <CheckAccident />
             </v-col>
-            <!-- <v-col cols='10' v-else-if="no === 1" >
-                <Uw />
-            </v-col> -->
         </v-row>
     </v-container>
 </template>
@@ -38,11 +35,6 @@ export default {
                     icon: 'mdi-account',
                     text: '사고 접수',
                     action : 0
-                },
-                {
-                    icon: 'mdi-star',
-                    text: '인수검사',
-                    action : 1
                 },
             ],
             no : 0,
