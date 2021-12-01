@@ -89,6 +89,7 @@ export default {
             }catch(err){
                 console.log(err)
             }
+            this.$router.go('#/home');
         },
         getContent() {
           return this.$refs.toastEditor.invoke('getMarkdown')
@@ -96,7 +97,7 @@ export default {
         goIdeaPage(){
             let result = confirm("취소하시겠습니까 ?");
             if(result){
-                location.href='#/home'
+                history.back();
             }
         },
         setInsurance(value){
