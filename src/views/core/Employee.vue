@@ -73,7 +73,7 @@ export default {
                 },
                 {
                     icon: 'mdi-inbox',
-                    text: '보험 수령 결제란',
+                    text: '수령 확인 결제란',
                     action : 3
                 },
             ],

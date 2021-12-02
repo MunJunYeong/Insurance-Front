@@ -17,7 +17,7 @@
             </v-col>
             <v-col cols='3'>
                 <v-text-field
-                label="보험 기간 입력"
+                label="보험 기간 입력  (형식 : mm/dd/yyyy)"
                 v-model="period">
                 </v-text-field>
             </v-col>
@@ -44,7 +44,7 @@
             <v-col cols='3'>
                 <v-text-field
                 type='number'
-                label="건물 갯수"
+                label="건물 번호"
                 v-model="buildingCount">
                 </v-text-field>
             </v-col>

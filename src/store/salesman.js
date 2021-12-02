@@ -3,16 +3,24 @@ import axios from "axios";
 const salesmanModule = {
     state : {
         clientList : [],
+        contractMoneyList : [],
     },
     mutations : {
         client_list_set_data(state, list){
             state.clientList = [];
             state.clientList.push(list);
+        },
+        contract_set_check_money(state, list){
+            state.contractMoneyList = [];
+            state.contractMoneyList.push(list);
         }
     },
     getters : {
         get_client_list(state){
             return state.clientList[0];
+        },
+        get_contract_money_list(state){
+            return state.contractMoneyList[0];
         }
     },
     actions : {
@@ -25,6 +33,31 @@ const salesmanModule = {
                 console.log(err);
             }
             commit('client_list_set_data', res.data);
+        },
+        async get_contract_check_money({commit}){
+            let res;
+            try {
+                res = await axios.get('http://localhost:8082/salesman/contractCheckMoney', {
+            });
+            } catch (err) {
+                console.log(err);
+            }
+            console.log(res.data)
+            commit('contract_set_check_money', res.data);
+        },
+        async final_payment({commit}, data){
+            let res;
+            try {
+                res = await axios.post('http://localhost:8082/salesman/finalPayment', {
+                    contractIdx : data.contractIdx
+            });
+            } catch (err) {
+                console.log(err);
+            }
+            if(res.data){
+                alert(`${res.data}번의 계약에서 보험금 수령 확인을 완료했습니다.`)
+            }
+            commit
         },
         //제안서 작성
         async add_suggest({commit}, data){
@@ -55,7 +88,6 @@ const salesmanModule = {
                 alert(`${res.data}번 계약의 제안서가 작성이 저장되었습니다.`);
                 return;
             }
-            console.log(res);
             commit
         },
         //청약서 작성
@@ -89,7 +121,6 @@ const salesmanModule = {
             if(res.data){
                 alert(`${res.data}번 계약의 청약서가 작성이 저장되었습니다.`);
             }
-            
             commit
         }
     }
