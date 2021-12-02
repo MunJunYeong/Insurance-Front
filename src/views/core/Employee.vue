@@ -26,8 +26,11 @@
             <v-col cols='10' v-else-if="no === 2" >
                 <Subcription />
             </v-col>
-            <v-col cols='10' v-else>
+            <v-col cols='10' v-else-if="no === 3">
                 <FinalPayment />
+            </v-col>
+            <v-col cols='10' v-else-if="no === 4">
+                <FinalContract />
             </v-col>
         </v-row>
     </v-container>
@@ -37,14 +40,15 @@ import ClientList from '../../components/employee/ClientList.vue'
 import Suggestion from '../../components/employee/Suggestion.vue'
 import Subcription from '../../components/employee/Subcription.vue'
 import FinalPayment from '../../components/employee/FinalPayment.vue'
-
+import FinalContract from '../../components/employee/FinalContract.vue'
 export default {
     name : 'employee',
     components : {
         ClientList,
         Suggestion,
         Subcription,
-        FinalPayment
+        FinalPayment,
+        FinalContract
     },
     created(){
     },
@@ -75,6 +79,11 @@ export default {
                     icon: 'mdi-inbox',
                     text: '수령 확인 결제란',
                     action : 3
+                },
+                {
+                    icon: 'mdi-inbox',
+                    text: '최종 계약 결제란',
+                    action : 4
                 },
             ],
             no : 0,

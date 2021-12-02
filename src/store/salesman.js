@@ -4,6 +4,7 @@ const salesmanModule = {
     state : {
         clientList : [],
         contractMoneyList : [],
+        finalContractList : [],
     },
     mutations : {
         client_list_set_data(state, list){
@@ -13,6 +14,10 @@ const salesmanModule = {
         contract_set_check_money(state, list){
             state.contractMoneyList = [];
             state.contractMoneyList.push(list);
+        },
+        set_final_contract_list(state, list){
+            state.finalContractList = [];
+            state.finalContractList.push(list);
         }
     },
     getters : {
@@ -21,7 +26,10 @@ const salesmanModule = {
         },
         get_contract_money_list(state){
             return state.contractMoneyList[0];
-        }
+        },
+        get_final_contract_list(state){
+            return state.finalContractList[0];
+        },
     },
     actions : {
         async show_client({commit}){
@@ -42,7 +50,6 @@ const salesmanModule = {
             } catch (err) {
                 console.log(err);
             }
-            console.log(res.data)
             commit('contract_set_check_money', res.data);
         },
         async final_payment({commit}, data){
@@ -56,6 +63,32 @@ const salesmanModule = {
             }
             if(res.data){
                 alert(`${res.data}번의 계약에서 보험금 수령 확인을 완료했습니다.`)
+            }
+            commit
+        },
+        async get_contract_final_contract({commit}, data){
+            let res;
+            try {
+                res = await axios.get('http://localhost:8082/salesman/getfinalContract', {
+                    contractIdx : data.contractIdx
+            });
+            } catch (err) {
+                console.log(err);
+            }
+            
+            commit('set_final_contract_list', res.data);
+        },
+        async post_contract_final_contract({commit}, data){
+            let res;
+            try {
+                res = await axios.post('http://localhost:8082/salesman/finalContract', {
+                    contractIdx : data.contractIdx
+            });
+            } catch (err) {
+                console.log(err);
+            }
+            if(res.data){
+                alert(`${res.data}번의 최종 계약이 체결됐습니다.`)
             }
             commit
         },
