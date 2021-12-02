@@ -13,23 +13,33 @@
             </v-col>
         </v-row>
         <v-row justify='center'>
-
+            <vue-drawing-canvas v-model="image" style="border: 1px solid #000;"
+              ref="VueCanvasDrawing"
+            />
+            
         </v-row>
+        <v-row justify="center">
+            <v-btn v-on:click="saveImage()">
+                사인 저장하기
+            </v-btn>
+        </v-row>
+        
     </v-container>
 </template>
 <script>
 import {Viewer} from '@toast-ui/vue-editor'
+import VueDrawingCanvas from 'vue-drawing-canvas';
 export default {
     name : 'checkSubcription',
     components : {
-        Viewer,
+        Viewer, VueDrawingCanvas
     },
     created(){
         this.showSubscription();
     },
     data(){
         return{
-
+            image : '',
         }
     },
     computed : {
@@ -47,10 +57,14 @@ export default {
                 }catch(err){
                     console.log(err);
             }
+            
         },
         setContent(content) {
           this.$refs.toastViewer.invoke('setMarkdown', content)
         },
+        saveImage(){
+            console.log(this.image)
+        }
     }
 }
 </script>
