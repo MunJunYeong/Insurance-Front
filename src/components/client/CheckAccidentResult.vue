@@ -2,7 +2,7 @@
     <v-container>
         <v-row justify='center'>
             <br><br>
-            <v-col cols='12'  class="table">
+            <v-col cols='12'  class="table" style="font-size:1.4em; font-weight: 600;">
                 사고 신고 대기건
             </v-col>
         </v-row>
@@ -17,14 +17,32 @@
         </v-row>
 
         <br><br><br>
-        <v-row justify='center'>
+        <v-row justify='center' >
             <br><br>
-            <v-col cols='12'  class="table">
+            <v-col cols='12'  class="table" style="font-size:1.4em; font-weight: 600;">
                 사고 신고 승인건
             </v-col>
         </v-row><br><br>
         <v-row justify='center'>
             <ProveAccidentList v-for="(item, index) in proveAccident"  :key="index" 
+            :accidentIdx="item.accidentIdx" 
+            :damagePrice="item.damagePrice" 
+            :date="item.date" 
+            :insuranceType="item.insurance.decriminatorValue"
+            :employeeIdx="item.employee.employeeIdx" 
+            :measuredPrice="item.measuredPrice" 
+            />
+        </v-row>
+
+        <br><br><br>
+        <v-row justify='center'>
+            <br><br>
+            <v-col cols='12'  class="table" style="font-size:1.4em; font-weight: 600;">
+                진행 중인 소송건
+            </v-col>
+        </v-row><br><br>
+        <v-row justify='center'>
+            <LawsuitAccidentList v-for="(item, index) in lawsuitAccident"  :key="index" 
             :accidentIdx="item.accidentIdx" 
             :damagePrice="item.damagePrice" 
             :date="item.date" 
@@ -39,12 +57,13 @@
 <script>
 import ProveAccidentList from '../../components/client/ProveAccidentList.vue';
 import NotProveAccidentList from '../../components/client/NotProveAccidentList.vue';
+import LawsuitAccidentList from '../../components/client/LawsuitAccidentList.vue';
 export default {
     created (){
         this.getClientList();
     },
     components : {
-        ProveAccidentList , NotProveAccidentList
+        ProveAccidentList , NotProveAccidentList, LawsuitAccidentList
     },
     computed : {
         notProveAccident : function(){
@@ -52,6 +71,9 @@ export default {
         },
         proveAccident : function(){
             return this.$store.getters.get_prove_my_accident;
+        },
+        lawsuitAccident : function(){
+            return this.$store.getters.get_lawsuit_my_accident;
         },
         userData : function(){
             return this.$store.getters.get_client_data;
@@ -66,7 +88,6 @@ export default {
             }catch(err){
                 console.log(err)
             }
-            console.log(this.proveAccident)
         },
     },
 }

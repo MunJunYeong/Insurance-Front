@@ -17,7 +17,9 @@ import Uw from '../views/core/Uw.vue'
 import Designer from '../views/core/Designer.vue'
 import Manager from '../views/core/Manager.vue'
 import Handler from '../views/core/Handler.vue'
-import AccidentItem from '../components/handler/AccidentItem.vue'
+
+import clientAccidentItem from '../components/client/AccidentItem.vue'
+import handlerAccidentItem from '../components/handler/AccidentItem.vue'
 const routes = [
   {
     path: '/',
@@ -62,6 +64,10 @@ const routes = [
         component : Client
       },
       {
+        path : 'client/:accidentIdx',
+        component : clientAccidentItem,
+      },
+      {
         path : 'uw',
         component : Uw
       },
@@ -79,7 +85,7 @@ const routes = [
       },
       {
         path : 'handler/:accidentIdx',
-        component : AccidentItem,
+        component : handlerAccidentItem,
       },
     ]
   },

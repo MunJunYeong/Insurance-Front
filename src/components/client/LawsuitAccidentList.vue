@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-row justify='center' v-on:click = "clickIdea(accidentIdx)">
+        <v-row justify='center' >
             <v-col cols='1' class="table2">
                 사고 번호 : {{accidentIdx}} 
             </v-col>
@@ -35,9 +35,7 @@ export default {
         "measuredPrice",
     ],
     methods : {
-        clickIdea(accidentIdx){
-            this.$router.push({path: `client/${accidentIdx}`});
-        },
+        
     }
 }
 </script>

@@ -7,6 +7,7 @@ const clientModule = {
         subscription : {},
         notProveAccidentList : [],
         proveAccidentList : [],
+        lawsuitAccidentList : []
     },
     mutations : {
         set_suggestion(state, data) {
@@ -23,6 +24,11 @@ const clientModule = {
             state.proveAccidentList = [];
             state.proveAccidentList.push(list);
         },
+        lawsuit_set_accident(state, list){
+            state.lawsuitAccidentList = [];
+            state.lawsuitAccidentList.push(list);
+        },
+        
     },
     getters : {
         get_client_suggestion(state){
@@ -36,6 +42,9 @@ const clientModule = {
         },
         get_prove_my_accident(state){
             return state.proveAccidentList[0];
+        },
+        get_lawsuit_my_accident(state){
+            return state.lawsuitAccidentList[0];
         }
     },
     actions : {
@@ -103,15 +112,35 @@ const clientModule = {
             let temp = res.data;
             let notProve = [];
             let prove = [];
+            let lawsuit = [];
             for(var i=0; i<temp.length; i++){
                 if(temp[i].employee === null){
                     notProve.push(temp[i]);
-                }else{
+                }else if(temp[i].lawsuit === null){
                     prove.push(temp[i]);
+                }else{
+                    lawsuit.push(temp[i]);
                 }
             }
             commit('not_prove_set_accident', notProve);
-            commit('prove_set_accident', prove)
+            commit('prove_set_accident', prove);
+            commit('lawsuit_set_accident', lawsuit);
+        },
+        async client_lawsuit({commit}, data){
+            let res;
+            console.log(data)
+            try {
+                res = await axios.post('http://localhost:8082/client/addLawsuit', {
+                    accidentIdx : data.accidentIdx,
+                    lawsuit : data.lawsuit,
+            });
+            } catch (err) {
+                console.log(err);
+            }
+            if(res.data){
+                alert(`${res.data}번 사고 소송을 진행하겠습니다.`)
+            }
+            commit
         },
     }
 }
