@@ -4,7 +4,9 @@ import madeModule from '../module/index'
 const clientModule = {
     state : {
         suggestion : {},
-        subscription : {}
+        subscription : {},
+        notProveAccidentList : [],
+        proveAccidentList : [],
     },
     mutations : {
         set_suggestion(state, data) {
@@ -12,7 +14,15 @@ const clientModule = {
         },
         set_subscription(state, data){
             state.subscription = data;
-        }
+        },
+        not_prove_set_accident(state, list){
+            state.notProveAccidentList = [];
+            state.notProveAccidentList.push(list);
+        },
+        prove_set_accident(state, list){
+            state.proveAccidentList = [];
+            state.proveAccidentList.push(list);
+        },
     },
     getters : {
         get_client_suggestion(state){
@@ -20,6 +30,12 @@ const clientModule = {
         },
         get_client_subscription(state){
             return state.subscription;
+        },
+        get_not_prove_my_accident(state){
+            return state.notProveAccidentList[0];
+        },
+        get_prove_my_accident(state){
+            return state.proveAccidentList[0];
         }
     },
     actions : {
@@ -59,7 +75,6 @@ const clientModule = {
                 console.log(err);
             }
             commit('set_suggestion', res.data)
-            commit
         },
         async show_subscription({commit}, data){
             let res;
@@ -73,7 +88,31 @@ const clientModule = {
                 console.log(err);
             }
             commit('set_subscription', res.data)
-        }
+        },
+        async show_all_accident({commit}, data){
+            let res;
+            try {
+                res = await axios.get('http://localhost:8082/client/accidentList', {
+                    params : {
+                        clientIdx : data.clientIdx
+                    }    
+            });
+            } catch (err) {
+                console.log(err);
+            }
+            let temp = res.data;
+            let notProve = [];
+            let prove = [];
+            for(var i=0; i<temp.length; i++){
+                if(temp[i].employee === null){
+                    notProve.push(temp[i]);
+                }else{
+                    prove.push(temp[i]);
+                }
+            }
+            commit('not_prove_set_accident', notProve);
+            commit('prove_set_accident', prove)
+        },
     }
 }
 
