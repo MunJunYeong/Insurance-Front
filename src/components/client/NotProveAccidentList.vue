@@ -17,7 +17,7 @@
                 관리자 미배정
             </v-col>
             <v-col cols='2' class="table2">
-                측정 금액 : 아직입니다
+                산정 금액 : 아직입니다
             </v-col>
         </v-row>
     </v-container>
