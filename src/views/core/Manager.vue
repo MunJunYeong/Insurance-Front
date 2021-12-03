@@ -20,21 +20,23 @@
                 <ContractRule />
             </v-col>
             <v-col cols='10'  v-if="no=== 1">
-                <Installment />
-            </v-col>
-            <v-col cols='10'  v-if="no=== 2">
                 <Expiration />
             </v-col>
+            <!-- <v-col cols='10'  v-if="no=== 2">
+                <Installment />
+            </v-col> -->
+            
         </v-row>
     </v-container>
 </template>
 <script>
 import ContractRule from '../../components/manager/ContractRule.vue'
-import Installment from '../../components/manager/Installment.vue'
+// import Installment from '../../components/manager/Installment.vue'
 import Expiration from '../../components/manager/Expiration.vue'
 export default {
     components : {
-        ContractRule, Installment, Expiration
+        ContractRule, Expiration,
+        // Installment
     },
     data(){
         return {
@@ -46,14 +48,14 @@ export default {
                 },
                 {
                     icon: 'mdi-star',
-                    text: '분납/수금',
+                    text: '만기 계약',
                     action : 1
                 },
-                {
-                    icon: 'mdi-star',
-                    text: '만기 계약',
-                    action : 2
-                },
+                // {
+                //     icon: 'mdi-star',
+                //     text: ' 분납/수금',
+                //     action : 2
+                // },
             ],
             no : 0,
         }
