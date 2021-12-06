@@ -32,6 +32,7 @@ const salesmanModule = {
         },
     },
     actions : {
+        //고객정보 가져오기
         async show_client({commit}){
             let res;
             try {
@@ -138,6 +139,10 @@ const salesmanModule = {
             });
             } catch (err) {
                 console.log(err);
+            }
+            if(res.data === 1){
+                alert('잘못된 계약 번호 입니다.');
+                return;
             }
             if(res.data === 0){
                 alert('잘못된 고객 번호 입니다.');

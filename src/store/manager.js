@@ -45,6 +45,7 @@ const managerModule = {
             } catch (err) {
                 console.log(err);
             }
+            console.log(res.data)
             commit('set_contract_expiration', res.data);
         },
         async delete_contract({commit}, data){

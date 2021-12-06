@@ -90,6 +90,41 @@ const authModule = {
             }else {
                 alert('로그인을 실패했습니다.');
             }
+        },
+        async client_find_id({commit}, data){
+            let res;
+            try{
+                res = await axios.post('http://localhost:8082/findId', {
+                    name : data.name,
+                    email : data.email
+                });
+            }catch(err){
+                console.log(err);
+            }
+            if(res.data){
+                alert(`찾으시는 ID는 : '${res.data}' 입니다.`);
+            }else {
+              alert('정보를 다시 입력해주세요 !')
+            }
+            commit
+        },
+        async client_find_pw({commit}, data){
+            let res;
+            console.log(data)
+            try{
+                res = await axios.post('http://localhost:8082/findPw', {
+                    id : data.id,
+                    email : data.email
+                });
+            }catch(err){
+                console.log(err);
+            }
+            if(res.data){
+                alert(`찾으시는 비밀번호는 : '${res.data}' 입니다.`);
+            }else {
+              alert('정보를 다시 입력해주세요 !')
+            }
+            commit
         }
     }
 }

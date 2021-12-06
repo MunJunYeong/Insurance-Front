@@ -4,39 +4,26 @@
           <v-col cols='4'>
             <v-text-field
                 label="이름 입력"
-                :rules="rules"
+                v-model="name"
                 hide-details="auto"
               ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols='3'>
-            <v-text-field
-              label="이메일 입력"
-              :rules="rules"
-              hide-details="auto"
-            ></v-text-field>
-          </v-col>
-          <v-col cols='1'>
-            <v-btn
-                elevation="2" block
-              >인증번호 받기</v-btn>  
           </v-col>
         </v-row>
         <v-row justify="center">
           <v-col cols='4'>
             <v-text-field
-                label="인증번호 입력"
-                :rules="rules"
-                hide-details="auto"
-              ></v-text-field>
+              label="이메일 입력"
+              v-model="email"
+              hide-details="auto"
+            ></v-text-field>
           </v-col>
-        </v-row>      
+        </v-row>
         <v-row justify="center">
           <v-col cols="4" >
             <v-btn
-              elevation="2" block>
-              다음
+              elevation="2" block
+              v-on:click="findId()">
+              아이디 찾기
             </v-btn>
           </v-col>      
         </v-row>
@@ -59,6 +46,25 @@
 <script>
 export default {
     name : 'findId',
-    
+    data() {
+      return {
+        name : '',
+        email : '',
+      }
+    },
+    methods: {
+      async findId(){
+        try {
+            await this.$store.dispatch('client_find_id', {
+              name : this.name,
+              email : this.email
+            })
+          } catch (err) {
+            console.log(err)
+          }
+          
+      },
+      
+    },
 }
 </script>

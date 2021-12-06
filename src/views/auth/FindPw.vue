@@ -3,49 +3,26 @@
         <v-row justify="center">
           <v-col cols='4'>
             <v-text-field
-                label="이름 입력"
-                :rules="rules"
-                hide-details="auto"
-              ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row justify="center">
-          <v-col cols='4'>
-            <v-text-field
               label="아이디 입력"
-              :rules="rules"
+              v-model="id"
               hide-details="auto"
             ></v-text-field>
           </v-col>
         </v-row>
         <v-row justify="center">
-          <v-col cols='3'>
+          <v-col cols='4'>
             <v-text-field
               label="이메일 입력"
-              :rules="rules"
+              v-model="email"
               hide-details="auto"
             ></v-text-field>
           </v-col>
-          <v-col cols='1'>
-            <v-btn
-                elevation="2" block
-              >인증번호 받기</v-btn>  
-          </v-col>
         </v-row>
-        <v-row justify="center">
-          <v-col cols='4'>
-            <v-text-field
-                label="인증번호 입력"
-                :rules="rules"
-                hide-details="auto"
-              ></v-text-field>
-          </v-col>
-        </v-row>    
         <v-row justify="center">
           <v-col cols="4" >
             <v-btn
-              elevation="2" block>
-              다음
+              elevation="2" block v-on:click="findPw">
+              비밀번호 찾기
             </v-btn>
           </v-col>      
         </v-row>
@@ -69,6 +46,23 @@
 <script>
 export default {
     name : 'findPw',
-    
+    data() {
+      return {
+        id : '',
+        email : '',
+      }
+    },
+    methods: {
+      async findPw(){
+        try {
+            await this.$store.dispatch('client_find_pw', {
+              id : this.id,
+              email : this.email
+            })
+          } catch (err) {
+            console.log(err)
+          }
+      },
+    },
 }
 </script>
