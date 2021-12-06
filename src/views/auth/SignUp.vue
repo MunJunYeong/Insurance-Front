@@ -11,7 +11,7 @@
       </v-col>
       <v-col cols='1'>
         <v-btn
-            elevation="2" block
+            elevation="2" block v-on:click="duplicateCheckId"
           >중복확인</v-btn>
       </v-col>
     </v-row>
@@ -176,6 +176,15 @@
             age : this.age,
             sex : this.sex,
           })
+        }catch(err){
+          console.log(err);
+        }
+      },
+      async duplicateCheckId(){
+        try{
+          await this.$store.dispatch('duplicated_check_id', {
+            id : this.id
+        })
         }catch(err){
           console.log(err);
         }

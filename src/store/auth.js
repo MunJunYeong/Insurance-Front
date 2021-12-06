@@ -26,6 +26,10 @@ const authModule = {
         //회원가입
         async sign_up ({commit}, data){
             let res;
+            if(!data.id || !data.pw || !data.name || !data.email || !data.ssn || !data.tel || !data.address || !data.age || !data.sex){
+                alert('회원가입에 필요한 모든 값을 넣어주세요.');
+                return;
+            }
             try {
                 res = await axios.post('http://localhost:8082/signUp', {
                     id : data.id,
@@ -51,6 +55,7 @@ const authModule = {
         },
         //고객 로그인
         async client_sign_in({commit}, data){
+            
             let res;
             try{
                 res = await axios.post('http://localhost:8082/client/signIn', {
@@ -110,7 +115,6 @@ const authModule = {
         },
         async client_find_pw({commit}, data){
             let res;
-            console.log(data)
             try{
                 res = await axios.post('http://localhost:8082/findPw', {
                     id : data.id,
@@ -123,6 +127,22 @@ const authModule = {
                 alert(`찾으시는 비밀번호는 : '${res.data}' 입니다.`);
             }else {
               alert('정보를 다시 입력해주세요 !')
+            }
+            commit
+        },
+        async duplicated_check_id({commit}, data){
+            let res;
+            try{
+                res = await axios.post('http://localhost:8082/duplicatedCheckId', {
+                    id : data.id,
+                });
+            }catch(err){
+                console.log(err);
+            }
+            if(res.data){
+                alert(`해당하는 아이디는 이미 존재합니다.`);
+            }else {
+              alert('입력 가능한 아이디 입니다 !')
             }
             commit
         }

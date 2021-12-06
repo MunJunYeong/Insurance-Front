@@ -65,6 +65,7 @@
 
 <script>
 
+
   export default {
     name: 'SignIn',
     
@@ -81,6 +82,12 @@
     },
     methods: {
       async login(){
+        let now = new Date(); let time = now.getHours();  let minute = now.getMinutes();
+        let lastMinute = 60- minute;
+        if(time === 21){
+          alert(`서버 점검 시간입니다. ${lastMinute}분 후 부터 이용해주세요.(21:00~22:00 서버 점검)`);
+          return;
+        }
         if(this.type === 'client'){
           try {
             

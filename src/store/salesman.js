@@ -109,13 +109,17 @@ const salesmanModule = {
             } catch (err) {
                 console.log(err);
             }
-            
+            console.log(res.data);
             if(res.data === 0){
                 alert('잘못된 고객 번호 입니다.');
                 return;
             }
             if(res.data === -1){
                 alert('해당 고객은 이미 제안서가 작성되어져 있습니다.');
+                return;
+            }
+            if(res.data === -2){
+                alert('제안서 내용 사이즈가 5MB를 초과');
                 return;
             }
             if(res.data){
@@ -130,6 +134,10 @@ const salesmanModule = {
             if(data.contractIdx === ''){alert('계약서 번호를 입력해주세요.'); return;}
             if(data.clientIdx === ''){alert('고객 번호를 입력해주세요.'); return;}
             if(data.content === ''){alert('청약서 내용을 입력해주세요.');return;}
+            if(res.data === -2){
+                alert('청약서 내용 사이즈가 5MB를 초과');
+                return;
+            }
             try {
                 res = await axios.post('http://localhost:8082/salesman/addSubscription', {
                     employeeIdx : data.employeeIdx,
@@ -158,6 +166,7 @@ const salesmanModule = {
             }
             if(res.data){
                 alert(`${res.data}번 계약의 청약서가 작성이 저장되었습니다.`);
+                this.$router.go('#/home');
             }
             commit
         }
