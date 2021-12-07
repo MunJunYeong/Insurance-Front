@@ -15,5 +15,10 @@ module.exports = {
               target: 'http://localhost:3000'
           }
       }
-  }
+  },
+  configureWebpack: {
+  module: {
+      exprContextCritical: false
+      }
+}
 }

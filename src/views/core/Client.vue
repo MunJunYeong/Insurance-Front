@@ -29,6 +29,9 @@
             <v-col cols='10' v-else-if="no === 3">
                 <CheckAccidentResult />
             </v-col>
+            <v-col cols='10' v-else-if="no === 4">
+                <ContractResult />
+            </v-col>
         </v-row>
     </v-container>
 </template>
@@ -37,12 +40,14 @@ import CheckSubscription from '../../components/client/CheckSubscription.vue';
 import Claim from '../../components/client/Accident.vue';
 import CheckSuggest from '../../components/client/CheckSuggest.vue';
 import CheckAccidentResult from '../../components/client/CheckAccidentResult.vue';
+import ContractResult from '../../components/client/ContractResult.vue';
 export default {
     components : {
         CheckSubscription,
         Claim,
         CheckSuggest,
         CheckAccidentResult,
+        ContractResult,
     },
     data(){
         return {
@@ -66,6 +71,11 @@ export default {
                     icon: 'mdi-inbox',
                     text: '사고 결과 확인',
                     action : 3
+                },
+                {
+                    icon: 'mdi-inbox',
+                    text: '계약 결과 확인',
+                    action : 4
                 },
             ],
             no : 0,

@@ -1,8 +1,5 @@
 import axios from "axios";
 
-import moduleFunction from '../module'
-
-
 const salesmanModule = {
     state : {
         clientList : [],
@@ -46,6 +43,7 @@ const salesmanModule = {
             }
             //최종계약 체결
             if(res.data){
+                alert(`${res.data}번의 최종 계약이 체결됐습니다.`);
                 let sendMail;
                 //최종계약 체결 시 필요한 정보 가지고 오기
                 try {
@@ -55,10 +53,8 @@ const salesmanModule = {
                 } catch (err) {
                     console.log(err);
                 }
-                moduleFunction.sendMail(sendMail.data.client.email, sendMail.data.subscription);
                 
-
-                alert(`${res.data}번의 최종 계약이 체결됐습니다.`);
+                console.log(sendMail)
             }
             commit
         },
@@ -100,7 +96,7 @@ const salesmanModule = {
         async get_contract_final_contract({commit}, data){
             let res;
             try {
-                res = await axios.get('http://localhost:8082/salesman/getfinalContract', {
+                res = await axios.get('http://localhost:8082/salesman/getFinalContract', {
                     contractIdx : data.contractIdx
             });
             } catch (err) {

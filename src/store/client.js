@@ -7,7 +7,10 @@ const clientModule = {
         subscription : {},
         notProveAccidentList : [],
         proveAccidentList : [],
-        lawsuitAccidentList : []
+        lawsuitAccidentList : [],
+        notContract : [],
+        proveContract : [],
+        
     },
     mutations : {
         set_suggestion(state, data) {
@@ -28,7 +31,14 @@ const clientModule = {
             state.lawsuitAccidentList = [];
             state.lawsuitAccidentList.push(list);
         },
-        
+        set_not_prove_contract(state, list){
+            state.notContract = [];
+            state.notContract.push(list);
+        },
+        set_prove_contract(state, list){
+            state.proveContract = [];
+            state.proveContract.push(list);
+        },
     },
     getters : {
         get_client_suggestion(state){
@@ -45,6 +55,12 @@ const clientModule = {
         },
         get_lawsuit_my_accident(state){
             return state.lawsuitAccidentList[0];
+        },
+        get_not_prove_my_contract(state){
+            return state.notContract[0];
+        },
+        get_prove_contract(state){
+            return state.proveContract[0];
         }
     },
     actions : {
@@ -142,6 +158,42 @@ const clientModule = {
                 alert(`${res.data}번 사고 소송을 진행하겠습니다.`)
             }
             commit
+        },
+        async subscription_sign({commit}, data){
+            let res;
+            try {
+                res = await axios.post('http://localhost:8082/client/subscriptionSign', {
+                    clientIdx : data.clientIdx,
+            });
+            } catch (err) {
+                console.log(err);
+            }
+            res
+            commit
+        },
+        async show_all_contract({commit}, data){
+            let res;
+            try {
+                res = await axios.get('http://localhost:8082/client/contract', {
+                    params : {
+                        clientIdx : data.clientIdx
+                    }
+            });
+            } catch (err) {
+                console.log(err);
+            }
+            let temp = res.data;
+            let notProve = [];
+            let prove = [];
+            for(var i=0; i<temp.length; i++){
+                if(!res.data[i].finalContract){
+                    notProve.push(temp[i]);
+                }else{
+                    prove.push(temp[i]);
+                }
+            }
+            commit('set_not_prove_contract', notProve);
+            commit('set_prove_contract', prove);
         },
     }
 }

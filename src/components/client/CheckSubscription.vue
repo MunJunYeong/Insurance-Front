@@ -12,15 +12,10 @@
                 <Viewer ref="toastViewer" height="500px" />
             </v-col>
         </v-row>
-        <v-row justify='center'>
-            <vue-drawing-canvas v-model="image" style="border: 1px solid #000;"
-              ref="VueCanvasDrawing"
-            />
-            
-        </v-row>
+        
         <v-row justify="center">
-            <v-btn v-on:click="saveImage()">
-                사인 저장하기
+            <v-btn v-on:click="signBtn()">
+                사인하기
             </v-btn>
         </v-row>
         
@@ -28,11 +23,10 @@
 </template>
 <script>
 import {Viewer} from '@toast-ui/vue-editor'
-import VueDrawingCanvas from 'vue-drawing-canvas';
 export default {
     name : 'checkSubcription',
     components : {
-        Viewer, VueDrawingCanvas
+        Viewer
     },
     created(){
         this.showSubscription();
@@ -62,9 +56,19 @@ export default {
         setContent(content) {
           this.$refs.toastViewer.invoke('setMarkdown', content)
         },
-        saveImage(){
-            console.log(this.image)
-        }
+        async signBtn(){
+            if(!this.userData.haveSubscription){
+                alert('해당 고객님에 대한 청약서가 존재하지 않습니다.');
+                return;
+            }
+            try{
+                await this.$store.dispatch('subscription_sign',{
+                        clientIdx : this.userData.clientIdx
+                    })
+                }catch(err){
+                    console.log(err);
+            }
+        },
     }
 }
 </script>

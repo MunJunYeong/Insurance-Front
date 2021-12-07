@@ -1,5 +1,5 @@
 
-// var nodemailer = require('nodemailer');
+
 // var smtpPool=require('nodemailer-smtp-pool');
 
 const checkValidateDate = (dateString)=>{
@@ -26,29 +26,8 @@ const checkValidateDate = (dateString)=>{
     return day > 0 && day <= monthLength[month - 1];
 }
 
-// const sendMail = (emailData, contentData) => {
-//     try {
-//       const mailConfig = {
-//         service: 'Naver',
-//         host: 'smtp.naver.com',
-//         port: 587,
-//         auth: {
-//           user: "msw711666@naver.com",
-//           pass: "answnsdud092"
-//         }
-//       }
-//       let message = {
-//         from: process.env.MAIL_EMAIL,
-//         to: emailData,
-//         subject: '신동아화재 보험회사 계약 청약서',
-//         html: contentData
-//       }
-//       let transporter = nodemailer.createTransport(mailConfig)
-//       transporter.sendMail(message)
-//     } catch (error) {
-//       console.log(error)
-//     }
-//   }
+
+
 
 
 module.exports = {
