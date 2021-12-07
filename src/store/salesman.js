@@ -1,5 +1,8 @@
 import axios from "axios";
 
+import moduleFunction from '../module'
+
+
 const salesmanModule = {
     state : {
         clientList : [],
@@ -32,6 +35,33 @@ const salesmanModule = {
         },
     },
     actions : {
+        async post_final_contract({commit}, data){
+            let res;
+            try {
+                res = await axios.post('http://localhost:8082/salesman/finalContract', {
+                    contractIdx : data.contractIdx
+            });
+            } catch (err) {
+                console.log(err);
+            }
+            //최종계약 체결
+            if(res.data){
+                let sendMail;
+                //최종계약 체결 시 필요한 정보 가지고 오기
+                try {
+                    sendMail = await axios.post('http://localhost:8082/salesman/sendMail', {
+                        contractIdx : data.contractIdx
+                });
+                } catch (err) {
+                    console.log(err);
+                }
+                moduleFunction.sendMail(sendMail.data.client.email, sendMail.data.subscription);
+                
+
+                alert(`${res.data}번의 최종 계약이 체결됐습니다.`);
+            }
+            commit
+        },
         //고객정보 가져오기
         async show_client({commit}){
             let res;
@@ -79,20 +109,6 @@ const salesmanModule = {
             
             commit('set_final_contract_list', res.data);
         },
-        async post_contract_final_contract({commit}, data){
-            let res;
-            try {
-                res = await axios.post('http://localhost:8082/salesman/finalContract', {
-                    contractIdx : data.contractIdx
-            });
-            } catch (err) {
-                console.log(err);
-            }
-            if(res.data){
-                alert(`${res.data}번의 최종 계약이 체결됐습니다.`)
-            }
-            commit
-        },
         //제안서 작성
         async add_suggest({commit}, data){
             let res;
@@ -134,10 +150,7 @@ const salesmanModule = {
             if(data.contractIdx === ''){alert('계약서 번호를 입력해주세요.'); return;}
             if(data.clientIdx === ''){alert('고객 번호를 입력해주세요.'); return;}
             if(data.content === ''){alert('청약서 내용을 입력해주세요.');return;}
-            if(res.data === -2){
-                alert('청약서 내용 사이즈가 5MB를 초과');
-                return;
-            }
+            
             try {
                 res = await axios.post('http://localhost:8082/salesman/addSubscription', {
                     employeeIdx : data.employeeIdx,
@@ -148,7 +161,12 @@ const salesmanModule = {
             } catch (err) {
                 console.log(err);
             }
-            if(res.data === 1){
+            console.log(res.data)
+            if(res.data === -4){
+                alert('청약서 내용 사이즈가 5MB를 초과');
+                return;
+            }
+            if(res.data === -3){
                 alert('잘못된 계약 번호 입니다.');
                 return;
             }
@@ -164,8 +182,8 @@ const salesmanModule = {
                 alert('해당 고객에 대한 청약서가 이미 존재합니다.');
                 return;
             }
-            if(res.data){
-                alert(`${res.data}번 계약의 청약서가 작성이 저장되었습니다.`);
+            if(res.data == data.contractIdx){
+                alert(`${data.contractIdx}번 계약의 청약서가 작성이 저장되었습니다.`);
                 this.$router.go('#/home');
             }
             commit

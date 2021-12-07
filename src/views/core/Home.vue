@@ -1,7 +1,7 @@
 <template>
     <v-container >
       <v-row justify="center" style="text-align:center">
-        <v-col cols="6">
+        <v-col cols="6" id="col">
           <div id="car">  </div>
           <div>
             <h2>자동차 보험</h2> 

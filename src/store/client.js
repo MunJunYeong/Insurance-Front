@@ -122,6 +122,7 @@ const clientModule = {
                     lawsuit.push(temp[i]);
                 }
             }
+            console.log(res.data)
             commit('not_prove_set_accident', notProve);
             commit('prove_set_accident', prove);
             commit('lawsuit_set_accident', lawsuit);

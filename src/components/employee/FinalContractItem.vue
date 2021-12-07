@@ -41,13 +41,13 @@ export default {
     methods : {
         async finalContract(){
             try{
-                await this.$store.dispatch('post_contract_final_contract', {
+                await this.$store.dispatch('post_final_contract', {
                     contractIdx : this.contractIdx
                 })
             }catch(err){
                 console.log(err)
             }
-            this.$router.go('#/home');
+            // this.$router.go('#/home');
         },
     }
 

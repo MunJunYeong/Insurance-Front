@@ -72,7 +72,7 @@ export default {
             }catch(err){
                 console.log(err)
             }
-            this.$router.go('#/home');
+            
         },
         getContent() {
           return this.$refs.toastEditor.invoke('getMarkdown')

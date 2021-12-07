@@ -30,10 +30,10 @@ const managerModule = {
             }
             if(res.data){
                 alert(`${res.data}번의 계약 관리 지침에 대한 작성이 저장되었습니다.`);
+                // this.$router.go('#/home');
             }else{
                 alert('저장에 실패 했습니다.');
             }
-            console.log(res);
             commit
         },
         async get_contract_expiration({commit}){
@@ -45,7 +45,6 @@ const managerModule = {
             } catch (err) {
                 console.log(err);
             }
-            console.log(res.data)
             commit('set_contract_expiration', res.data);
         },
         async delete_contract({commit}, data){
