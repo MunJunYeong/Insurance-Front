@@ -50,7 +50,6 @@ export default {
                     console.log(err)
                 }
             }
-            
             // this.$router.go('#/home');
         },
     }

@@ -44,7 +44,7 @@
             <v-col cols='3'>
                 <v-text-field
                 type='number'
-                label="건물 개수"
+                label="사업자 번호"
                 v-model="businessNo">
                 </v-text-field>
             </v-col>

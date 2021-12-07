@@ -4,6 +4,10 @@ const authModule = {
     state : {
         clientData : {},
         employeeData : {},
+        car : {},
+        fire : {},
+        industrial : {},
+        life : {}
     },
     mutations : {
         client_set_data(state, data){
@@ -11,7 +15,19 @@ const authModule = {
         },
         employee_set_data(state, data){
             state.employeeData = {...data};
-        }
+        },
+        set_car_insurance(state,data){
+            state.car = data;
+        },
+        set_fire_insurance(state,data){
+            state.fire = data;
+        },
+        set_industrial_insurance(state,data){
+            state.industrial = data;
+        },
+        set_life_insurance(state,data){
+            state.life = data;
+        },
     },
     getters : {
         get_client_data(state){
@@ -20,9 +36,38 @@ const authModule = {
         get_employee_data(state){
             return state.employeeData;
         },
+        get_car(state){
+            return state.car;
+        },
+        get_fire(state){
+            return state.fire;
+        },
+        get_industrial(state){
+            return state.industrial;
+        },
+        get_life(state){
+            return state.life;
+        },
 
     },
     actions : {
+        async show_insurance({commit}){
+            let res;
+            try{
+                res = await axios.get('http://localhost:8082/insurance', {
+                });
+            }catch(err){
+                console.log(err);
+            }
+            let car = res.data[0];
+            let fire = res.data[1];
+            let industrial = res.data[2];
+            let life = res.data[3];
+            commit('set_car_insurance', car);
+            commit('set_fire_insurance', fire);
+            commit('set_industrial_insurance', industrial);
+            commit('set_life_insurance', life);
+        },
         //회원가입
         async sign_up ({commit}, data){
             let res;
@@ -145,7 +190,8 @@ const authModule = {
               alert('입력 가능한 아이디 입니다 !')
             }
             commit
-        }
+        },
+        
     }
 }
 
